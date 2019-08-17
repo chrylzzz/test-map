@@ -131,6 +131,7 @@
             </if>
         </where>
         limit 2,3
+--         limit #{page},#{limit}
     </select>
     <!-- resultMap -->
     <select id="query7" resultMap="BaseResultMap" parameterType="string">
