@@ -133,6 +133,20 @@
         limit 2,3
 --         limit #{page},#{limit}
     </select>
+    <!-- 分页 -->
+    <!--<select id="selectAllProjects2" resultMap="BaseResultMap">-->
+        <!--SELECT * FROM ss_project_manage s-->
+        <!--<where>-->
+            <!--<if test="projectName!=null and projectName!=''">-->
+                <!--and s.project_name like '%${projectName}%'-->
+            <!--</if>-->
+            <!--<if test="projectLeaderName!=null and projectLeaderName!=''">-->
+                <!--and s.project_leader_name like '%${projectLeaderName}%'-->
+            <!--</if>-->
+        <!--</where>-->
+        <!--ORDER BY s.project_end_time DESC-->
+        <!--limit #{page} , #{limit}-->
+    <!--</select>-->
     <!-- resultMap -->
     <select id="query7" resultMap="BaseResultMap" parameterType="string">
         SELECT
