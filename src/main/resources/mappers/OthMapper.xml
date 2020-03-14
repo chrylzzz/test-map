@@ -230,4 +230,7 @@
              </trim>
          </where>
      </select>-->
+    <select id="testLikeQuery" parameterType="string" resultType="map">
+        SELECT * from u_clazz WHERE u_name LIKE #{name}"%"
+    </select>
 </mapper>

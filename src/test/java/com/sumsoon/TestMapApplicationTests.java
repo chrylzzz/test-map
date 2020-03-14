@@ -1,6 +1,7 @@
 package com.sumsoon;
 
 import com.sumsoon.zzz.mapper.ClaStuMapper;
+import com.sumsoon.zzz.mapper.OthMapper;
 import com.sumsoon.zzz.po.Country;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,6 +25,8 @@ public class TestMapApplicationTests {
 
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private OthMapper othMapper;
 
     @Test
     public void contextLoads() {
@@ -34,5 +41,12 @@ public class TestMapApplicationTests {
         System.out.println(forEntity);
 
     }
+
+    @Test
+    public void show() {
+        List<Map<String, Object>> map = othMapper.testLikeQuery("f");
+        System.out.println(map);
+    }
+
 
 }
