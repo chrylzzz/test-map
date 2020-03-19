@@ -1,0 +1,41 @@
+<html> 
+ <head> 
+  <meta charset="utf-8" /> 
+  <title>利用EasyUI实现多选下拉框</title> 
+  <link rel="stylesheet" type="text/css" href="css/easyui.css" rel="external nofollow" /> 
+  <style type="text/css"> 
+   ul{ 
+    width: 200px !important; 
+   } 
+   li{ 
+    width: 50px !important; 
+    float: left !important; 
+   } 
+  </style> 
+  <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+  <script src="js/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script> 
+  <script type="text/javascript"> 
+   $(function () { 
+    $('#ddlLine').combotree({ 
+     valueField: "id", //Value字段 
+     textField: "text", //Text字段 
+     multiple: true, 
+     data: [{ "id": 1, "text": "All", "children": [{ "id": 13, "text": "C1" }, { "id": 14, "text": "C2" }, { "id": 15, "text": "C3"}]}], 
+//     url: "tree_data2.json", //数据源 
+     onCheck: function (node, checked) { 
+      //让全选不显示 
+      $("#ddlLine").combotree("setText", $("#ddlLine").combobox("getText").toString().replace("全选,", "")); 
+     }, 
+     onClick: function (node, checked) { 
+      //让全选不显示 
+      $("#ddlLine").combotree("setText", $("#ddlLine").combobox("getText").toString().replace("全选,", "")); 
+     } 
+    }); 
+   }) 
+  </script> 
+</head> 
+<body> 
+ 多选：<select id="ddlLine" class="easyui-combotree" style="width: 205px; height: 24px;"> 
+ </select> 
+</body> 
+</html>
