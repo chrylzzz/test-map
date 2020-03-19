@@ -18,4 +18,30 @@
             </if>
         </where>
     </select>
+
+
+    <!-- open close: 多用在 where xxx in ('','','') 这样的sql -->
+    <!--
+        <select id="testForechSel">
+            <foreach collection="ObjectList" item="object" separator="," open="(" close=")">
+
+            </foreach>
+        </select>
+    -->
+    <!-- 如果是单传的批量添加: 直接把() 写在foreach 里面即可 -->
+    <!--
+    <insert id="testForechIns">
+        <foreach collection="ObjectList" item="object" separator=",">
+            (
+            )
+        </foreach>
+    </insert>
+    -->
+    <!--
+        字符串和集合使用if 标签判断:
+            字符串:
+             <if test="str != null and str!=''  ">
+             集合:
+             <if test="list != null and list.size() > 0  ">
+     -->
 </mapper>
