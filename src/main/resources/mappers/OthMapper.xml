@@ -17,7 +17,7 @@
         FROM xxx
         -- WHERE 别直接写where
         <where>
-            <if test="maa!=null">
+            <if test="maa!=null and maa!=''">
                 maa
                 LIKE
                 #{maa}"%"
@@ -32,7 +32,7 @@
         FROM xxx
         -- WHERE 别直接写where
         <where>
-            <if test="maa!=null">
+            <if test="maa!=null and maa !=''">
                 maa
                 LIKE
                 #{maa}"%"
@@ -124,7 +124,7 @@
         FROM xxx
         -- WHERE 别直接写where
         <where>
-            <if test="maa!=null">
+            <if test="maa!=null and maa!=''">
                 maa
                 LIKE
                 CONCAT(CONCAT('%', #{maa},'%'))
