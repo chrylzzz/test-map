@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 /**
  * 测试resultMap:一对一,一对多,多对多,多对多对一
  * <p>
@@ -40,6 +44,15 @@ public class ClaStuController {
     @RequestMapping("/stu5")
     public Object show5() {
         return claStuMapper.queryCPCC();
+    }
+    public static void main(String[] args) {
+        Set<String> set = new HashSet<>();
+        for (int i = 0; i < 10000000; i++) {
+            set.add(UUID.randomUUID().toString());
+//            set.add(String.valueOf(UUID.randomUUID().toString().hashCode()));
+
+        }
+        System.out.println(set.size());
     }
 
 }

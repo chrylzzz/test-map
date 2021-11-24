@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sumsoon.zzz.mapper.ChrDictMapper">
+    <resultMap id="dict_ResultMap" type="com.sumsoon.zzz.po.ChrDict">
+        <id column="pid" jdbcType="VARCHAR" property="dictId"/>
+        <result column="pname" jdbcType="VARCHAR" property="dictName"/>
+        <result column="pparentcode" jdbcType="VARCHAR" property="parentCode"/>
+        <result column="pcode" jdbcType="VARCHAR" property="dictCode"/>
+        <collection property="chrDictList" ofType="com.sumsoon.zzz.po.ChrDict">
+            <id column="cid" jdbcType="VARCHAR" property="dictId"/>
+            <result column="cname" jdbcType="VARCHAR" property="dictName"/>
+            <result column="cparentcode" jdbcType="VARCHAR" property="parentCode"/>
+            <result column="ccode" jdbcType="VARCHAR" property="dictCode"/>
+        </collection>
+    </resultMap>
+    <!-- 单表联合查询 : 二级关联
+        使用两张一样的表，但是别名不同；
+        父表统一使用p开头标识字段；
+        子表统一使用c开头；
+        分别将p和c映射到resultMap上
+     -->
+    <select id="querydict" resultMap="dict_ResultMap">
+        SELECT
+        DISTINCT
+
+        c.dict_id pid,
+        c.dict_name pname,
+        c.parent_code pparentcode,
+        c.dict_code pcode,
+
+        c2.dict_id cid,
+        c2.dict_name cname,
+        c2.parent_code cparentcode,
+        c2.dict_code ccode
+        FROM
+        chr_dict c , chr_dict c2
+        WHERE c.dict_code = c2.parent_code
+    </select>
+
+    <!-- 单表三级关联 ： 这样如果三级没有数据的话，会导致三级parent_code没有值 ， 则查询不到没有三级的数据
+        只有维护好有三级的才能被查到
+    -->
+    <resultMap id="select_ResultMap" type="com.sumsoon.zzz.po.ChrDict">
+        <id column="pid" jdbcType="VARCHAR" property="dictId"/>
+        <result column="pname" jdbcType="VARCHAR" property="dictName"/>
+        <result column="pparentcode" jdbcType="VARCHAR" property="parentCode"/>
+        <result column="pcode" jdbcType="VARCHAR" property="dictCode"/>
+        <collection property="chrDictList" ofType="com.sumsoon.zzz.po.ChrDict">
+            <id column="cid" jdbcType="VARCHAR" property="dictId"/>
+            <result column="cname" jdbcType="VARCHAR" property="dictName"/>
+            <result column="cparentcode" jdbcType="VARCHAR" property="parentCode"/>
+            <result column="ccode" jdbcType="VARCHAR" property="dictCode"/>
+            <collection property="chrDictList" ofType="com.sumsoon.zzz.po.ChrDict">
+                <id column="ccid" jdbcType="VARCHAR" property="dictId"/>
+                <result column="ccname" jdbcType="VARCHAR" property="dictName"/>
+                <result column="ccparentcode" jdbcType="VARCHAR" property="parentCode"/>
+                <result column="cccode" jdbcType="VARCHAR" property="dictCode"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="selectdict" resultMap="select_ResultMap">
+        SELECT
+        DISTINCT
+
+        c.dict_id pid,
+        c.dict_name pname,
+        c.parent_code pparentcode,
+        c.dict_code pcode,
+
+        c2.dict_id cid,
+        c2.dict_name cname,
+        c2.parent_code cparentcode,
+        c2.dict_code ccode,
+
+        c3.dict_id ccid,
+        c3.dict_name ccname,
+        c3.parent_code ccparentcode,
+        c3.dict_code cccode
+
+        FROM
+        chr_dict c , chr_dict c2 , chr_dict c3
+        WHERE c.dict_code = c2.parent_code
+        AND c2.dict_code = c3.parent_code
+
+    </select>
+</mapper>
